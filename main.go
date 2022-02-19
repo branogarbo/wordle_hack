@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	word, err := GetWordByDate("2022-02-18")
+	word, err := GetWordByDate(2, 18, 2022)
 	if err != nil {
 		log.Fatal(err)
 	}
