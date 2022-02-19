@@ -31,10 +31,17 @@ func GetWordByDate(month, day, year int) (string, error) {
 
 func PopWordDateMap(words Words) word_date_map {
 	var (
+		dodgeIndex    int
 		word_date_map = make(word_date_map)
-		dodgeIndex    = 244
 		dodgeDay      = time.Date(2022, time.February, 18, 0, 0, 0, 0, time.Now().UTC().Location())
 	)
+
+	for i, w := range words {
+		if w == "dodge" {
+			dodgeIndex = i
+			break
+		}
+	}
 
 	for wordIndex, word := range words {
 		var (
