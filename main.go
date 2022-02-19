@@ -1,12 +1,16 @@
 package main
 
+import (
+	"fmt"
+	"log"
+	"time"
+)
+
 func main() {
-	words, err := ReadJSON("./data/word_history.json")
+	word, err := GetWordByDate(2022, time.February, 18)
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
-	for _, word := range words {
-		println(word)
-	}
+	fmt.Println(word)
 }
