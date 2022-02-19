@@ -7,16 +7,20 @@ import (
 	"time"
 )
 
-func GetWordByDate(year int, month time.Month, day int) (string, error) {
+func GetWordByDate(dateString string) (string, error) {
 	words, err := ReadJSON("./data/word_list_ordered.json")
 	if err != nil {
 		return "", err
 	}
 
-	var (
-		wdm  = PopWordDateMap(words)
-		word = wdm[time.Date(year, month, day, 0, 0, 0, 0, time.Now().UTC().Location())]
-	)
+	wdm := PopWordDateMap(words)
+
+	date, err := time.Parse("2006-01-02T15:04:05.000Z", dateString+"T00:00:00.000Z")
+	if err != nil {
+		return "", err
+	}
+
+	word := wdm[date]
 
 	if word == "" {
 		return "", errors.New("the passed date is not within wordle's date range")
