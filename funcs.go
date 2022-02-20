@@ -10,12 +10,12 @@ import (
 func GetWordByDate(date time.Time) (string, error) {
 	date = time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, time.Now().UTC().Location())
 
-	words, err := ReadJSON("./data/word_list_ordered.json")
+	words, err := readJSON("./data/word_list_ordered.json")
 	if err != nil {
 		return "", err
 	}
 
-	wdm := PopWordDateMap(words)
+	wdm := popWordDateMap(words)
 	word := wdm[date]
 
 	if word == "" {
@@ -26,12 +26,12 @@ func GetWordByDate(date time.Time) (string, error) {
 }
 
 func GetWordByString(dateString string) (string, error) {
-	words, err := ReadJSON("./data/word_list_ordered.json")
+	words, err := readJSON("./data/word_list_ordered.json")
 	if err != nil {
 		return "", err
 	}
 
-	wdm := PopWordDateMap(words)
+	wdm := popWordDateMap(words)
 
 	date, err := time.Parse("2006-01-02T15:04:05.000Z", dateString+"T00:00:00.000Z")
 	if err != nil {
@@ -48,12 +48,12 @@ func GetWordByString(dateString string) (string, error) {
 }
 
 func GetWordByInteger(year, month, day int) (string, error) {
-	words, err := ReadJSON("./data/word_list_ordered.json")
+	words, err := readJSON("./data/word_list_ordered.json")
 	if err != nil {
 		return "", err
 	}
 
-	wdm := PopWordDateMap(words)
+	wdm := popWordDateMap(words)
 
 	date := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Now().UTC().Location())
 	if err != nil {
@@ -69,7 +69,7 @@ func GetWordByInteger(year, month, day int) (string, error) {
 	return word, nil
 }
 
-func PopWordDateMap(words Words) WordDateMap {
+func popWordDateMap(words Words) WordDateMap {
 	var (
 		dodgeIndex    int
 		word_date_map = make(WordDateMap)
@@ -95,7 +95,7 @@ func PopWordDateMap(words Words) WordDateMap {
 	return word_date_map
 }
 
-func ReadJSON(path string) (Words, error) {
+func readJSON(path string) (Words, error) {
 	var wordsOut Words
 
 	byteOut, err := os.ReadFile(path)

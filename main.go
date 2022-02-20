@@ -2,17 +2,16 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"time"
 )
 
 func main() {
-	date := time.Now().Add(time.Hour * -24)
+	word, _ := GetWordByDate(time.Now())
+	fmt.Println(word)
 
-	word, err := GetWordByDate(date)
-	if err != nil {
-		log.Fatal(err)
-	}
+	word, _ = GetWordByString("2022-02-18")
+	fmt.Println(word)
 
+	word, _ = GetWordByInteger(2022, 2, 18)
 	fmt.Println(word)
 }
