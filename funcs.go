@@ -8,12 +8,58 @@ import (
 )
 
 func GetWordByDate(date time.Time) (string, error) {
+	date = time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, time.Now().UTC().Location())
+
 	words, err := ReadJSON("./data/word_list_ordered.json")
 	if err != nil {
 		return "", err
 	}
 
 	wdm := PopWordDateMap(words)
+	word := wdm[date]
+
+	if word == "" {
+		return "", errors.New("the passed date is not within wordle's date range")
+	}
+
+	return word, nil
+}
+
+func GetWordByString(dateString string) (string, error) {
+	words, err := ReadJSON("./data/word_list_ordered.json")
+	if err != nil {
+		return "", err
+	}
+
+	wdm := PopWordDateMap(words)
+
+	date, err := time.Parse("2006-01-02T15:04:05.000Z", dateString+"T00:00:00.000Z")
+	if err != nil {
+		return "", err
+	}
+
+	word := wdm[date]
+
+	if word == "" {
+		return "", errors.New("the passed date is not within wordle's date range")
+	}
+
+	return word, nil
+}
+
+func GetWordByInteger(year, month, day int) (string, error) {
+	words, err := ReadJSON("./data/word_list_ordered.json")
+	if err != nil {
+		return "", err
+	}
+
+	wdm := PopWordDateMap(words)
+
+	date := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Now().UTC().Location())
+	if err != nil {
+		return "", err
+	}
+
 	word := wdm[date]
 
 	if word == "" {

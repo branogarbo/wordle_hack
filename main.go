@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	date := time.Date(2022, time.February, 18, 0, 0, 0, 0, time.Now().UTC().Location())
+	date := time.Now().Add(time.Hour * -24)
 
 	word, err := GetWordByDate(date)
 	if err != nil {
