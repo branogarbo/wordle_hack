@@ -7,19 +7,13 @@ import (
 	"time"
 )
 
-func GetWordByDate(month, day, year int) (string, error) {
+func GetWordByDate(date time.Time) (string, error) {
 	words, err := ReadJSON("./data/word_list_ordered.json")
 	if err != nil {
 		return "", err
 	}
 
 	wdm := PopWordDateMap(words)
-
-	date := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Now().UTC().Location())
-	if err != nil {
-		return "", err
-	}
-
 	word := wdm[date]
 
 	if word == "" {
