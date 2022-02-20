@@ -1,4 +1,4 @@
-package main
+package wordle_hack
 
 import (
 	"encoding/json"
