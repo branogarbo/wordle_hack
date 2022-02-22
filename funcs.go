@@ -6,7 +6,7 @@ import (
 )
 
 func GetWordByDate(date time.Time) (string, error) {
-	date = time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, time.Now().UTC().Location())
+	date = time.Date(date.Year(), date.Month(), date.Day(), 0, 0, 0, 0, time.UTC)
 
 	wdm := popWordDateMap(words)
 	word := wdm[date]
@@ -35,7 +35,7 @@ func GetWordByString(dateString string) (string, error) {
 }
 
 func GetWordByInteger(year, month, day int) (string, error) {
-	date := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Now().UTC().Location())
+	date := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
 
 	wdm := popWordDateMap(words)
 	word := wdm[date]
@@ -51,7 +51,7 @@ func popWordDateMap(words Words) WordDateMap {
 	var (
 		dodgeIndex    int
 		word_date_map = make(WordDateMap)
-		dodgeDay      = time.Date(2022, time.February, 18, 0, 0, 0, 0, time.Now().UTC().Location())
+		dodgeDay      = time.Date(2022, time.February, 18, 0, 0, 0, 0, time.UTC)
 	)
 
 	for i, w := range words {
